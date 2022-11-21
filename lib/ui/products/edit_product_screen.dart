@@ -71,6 +71,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   Future<void> _saveForm() async {
     final isValid = _editForm.currentState!.validate();
+    print(isValid);
     if (!isValid) {
       return;
     }

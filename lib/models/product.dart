@@ -55,6 +55,7 @@ class Product {
     return {
       'title': title,
       'description': description,
+      'location': location,
       'price': price,
       'imageUrl': imageUrl,
     };

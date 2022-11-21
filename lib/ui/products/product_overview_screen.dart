@@ -17,16 +17,10 @@ class ProductsOverviewScreen extends StatefulWidget {
 }
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
-  late Future<void> _fetchProducts;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchProducts = context.read<ProductsManager>().fetchProducts();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
+    final bodyHeight = deviceSize.height - 300;
     final hotelItem = context.watch<ProductsManager>().items;
     return Scaffold(
       appBar: AppBar(
@@ -246,28 +240,30 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             Row(
               children: [
                 Expanded(
-                  // height: 100,
-                  child: ListView.builder(
-                    itemCount: hotelItem.length,
-                    // scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(hotelItem[index].imageUrl),
-                        ),
-                        title: Text(hotelItem[index].title),
-                        trailing: Text(hotelItem[index].price.toString()),
-                        subtitle: Text(hotelItem[index].location),
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            ProductDetailScreen.routeName,
-                            arguments: hotelItem[index].id,
-                          );
-                        },
-                      );
-                    },
+                  child: SizedBox(
+                    height: bodyHeight * 0.44,
+                    child: ListView.builder(
+                      itemCount: hotelItem.length,
+                      // scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(hotelItem[index].imageUrl),
+                          ),
+                          title: Text(hotelItem[index].title),
+                          trailing: Text('\$${hotelItem[index].price}'),
+                          subtitle: Text(hotelItem[index].location),
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              ProductDetailScreen.routeName,
+                              arguments: hotelItem[index].id,
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

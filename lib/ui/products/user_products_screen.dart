@@ -64,6 +64,7 @@ class UserProductsScreen extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).pushNamed(
           EditProductScreen.routeName,
+          arguments: null,
         );
       },
     );
